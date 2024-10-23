@@ -10,7 +10,13 @@ class Author < ApplicationRecord
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false },
                    length: { minimum: 3, maximum: 25 }
-  validates :password_confirmation, presence: true
+  validates :password_confirmation, presence: true, if: :password_required?
+
+  # Yêu cầu mật khẩu chỉ khi mật khẩu được nhập hoặc khi tạo mới (new_record?)
+  def password_required?
+    new_record? || password.present? || password_confirmation.present?
+  end
+
   def to_s
     name.to_s
   end
