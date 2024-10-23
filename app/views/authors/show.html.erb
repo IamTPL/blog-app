@@ -1,14 +1,42 @@
-<p id="notice"><%= notice %></p>
+<div class="text-center">
+  <h1> <%= "Profile\'s #{@author.name}"%> </h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @author.name %>
-</p>
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Age:</strong>
-  <%= @author.age %>
-</p>
+  <p class="fs-4">
+    <strong>Name:</strong>
+    <%= @author.name %>
+  </p>
+  
+  <p class="fs-4">
+    <strong>Age:</strong>
+    <%= @author.age %>
+  </p>
+  
+  <p class="fs-4">
+    <strong>Email:</strong>
+    <%= @author.email %>
+  </p>
+
+  <div>
+    <td><%= link_to 'Edit your profile', edit_author_path(@author), class: 'link-primary link-offset-2 btn btn-outline-info' %></td>
+  </div>
+
+  <p class="fs-4 mt-5">
+    <strong>Articles list:</strong> 
+  </p>
+
+  <div class="flickr_pagination">
+   <%= will_paginate @articles, :container => false %>
+  </div>
+
+  <%= render 'articles/article' %>
+
+  <div class="flickr_pagination mb-4">
+    <%= will_paginate @articles, :container => false %>
+  </div>
+
+</div>
 
 <%= link_to 'Edit', edit_author_path(@author) %> |
 <%= link_to 'Back', authors_path %>

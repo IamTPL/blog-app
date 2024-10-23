@@ -1,31 +1,17 @@
 <p id="notice"><%= notice %></p>
-<h1>Articles</h1>
+<h1 class="text-center">List of Articles</h1>
+<div class="d-flex justify-content-center my-3">
+  <%= link_to 'New Article', new_article_path, class: 'btn btn-dark text-white' %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Create at</th>
-      <th>Update at</th>
-      <th>Author</th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @articles.each do |article| %>
-      <tr>
-        <td><%= article.title %></td>
-        <td><%= article.description %></td>
-        <td><%= article.created_at %></td>
-        <td><%= article.updated_at %></td>
-        <td><%= article.author %></td>
-        <td><%= link_to 'Show', article_path(article) %></td>
-        <td><%= link_to 'Edit', edit_article_path(article) %></td>
-        <td><%= link_to 'Destroy', article_path(article), method: :delete, data: { confirm: 'Are you sure ?'} %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%# Will_Pagination & Style %>
+<div class="flickr_pagination">
+  <%= will_paginate @articles, :container => false %>
+</div>
 
-<%= link_to 'New Article', new_article_path %>
+<%= render 'article' %>
+
+<div class="flickr_pagination mb-4">
+  <%= will_paginate @articles, :container => false %>
+</div>

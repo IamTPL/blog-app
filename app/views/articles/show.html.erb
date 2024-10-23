@@ -1,31 +1,38 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Article</h1>
 
-<p>
+<h1 class="mb-5">
   <strong>Title:</strong>
   <%= @article.title %>
-</p>
+</h1>
 
-<p>
+<p class="fs-5 mb-4">
   <strong>Description:</strong>
   <%= @article.description %>
 </p>
 
-<p>
+<p class="fs-5 mb-4">
   <strong>Created at:</strong>
   <%= @article.created_at %>
 </p>
 
-<p>
+<p class="fs-5 mb-4">
   <strong>Updated at:</strong>
   <%= @article.updated_at %>
 </p>
 
-<p>
+<p class="fs-5 mb-4">
+  <strong>Topic:</strong>
+  <%= @article.article_detail.topic %>
+</p>
+
+<p class="fs-5 mb-4">
   <strong>Author:</strong>
   <%= @article.author %>
 </p>
+
+
+
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>

@@ -10,22 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_241_011_101_551) do
-  create_table 'articles', force: :cascade do |t|
-    t.string 'title'
-    t.text 'description'
-    t.datetime 'created_at'
-    t.datetime 'updated_at'
-    t.integer 'author_id', null: false
-    t.index ['author_id'], name: 'index_articles_on_author_id'
+ActiveRecord::Schema.define(version: 2024_10_23_042347) do
+
+  create_table "article_details", force: :cascade do |t|
+    t.integer "article_id", null: false
+    t.integer "word_count"
+    t.string "topic"
+    t.datetime "published_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id"], name: "index_article_details_on_article_id"
   end
 
-  create_table 'authors', force: :cascade do |t|
-    t.string 'name'
-    t.string 'age'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "articles", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "author_id", null: false
+    t.index ["author_id"], name: "index_articles_on_author_id"
   end
 
-  add_foreign_key 'articles', 'authors'
+  create_table "authors", force: :cascade do |t|
+    t.string "name"
+    t.string "age"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "email"
+    t.string "password"
+    t.string "password_digest"
+    t.index ["email"], name: "index_authors_on_email", unique: true
+  end
+
+  add_foreign_key "article_details", "articles"
+  add_foreign_key "articles", "authors"
 end

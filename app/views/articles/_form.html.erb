@@ -12,23 +12,38 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="mb-3">
+    <%= form.label :title, class: 'form-label' %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :description %>
-    <%= form.text_field :description %>
+  <div class="mb-3">
+    <%= form.label :description, class: 'form-label' %>
+    <%= form.text_field :description, class: "form-control" %>
   </div>
-
-  <div>
-    <%= form.label :author_id, "Select Author" %>
+  
+  <div class="mb-3">
+    <%= form.label :author_id, "Select Author", class: "form-label" %>
+    <br>
     <%= form.collection_select :author_id, authors, :id, :name, prompt: "Select a Author" %> 
   </div>
 
+  <div class="mb-3">
+    <%= form.fields_for :article_detail do |detail_fields| %>
+      <%= detail_fields.label :word_count, "Word Count", class: "form-label" %>
+      <%= detail_fields.number_field :word_count, class: "form-control" %>
 
-  <div class="actions">
-    <%= form.submit %>
+      <%= detail_fields.label :topic, "Topic", class: "form-label" %>
+      <%= detail_fields.text_field :topic, class: "form-control mb-3" %>
+
+      <%= detail_fields.label :published_at, "Published At", class: "form-label" %>
+      <%= detail_fields.datetime_select :published_at %>
+    <% end %>
+  </div>
+
+  <br>
+
+  <div class="actions mb-5">
+    <%= form.submit @article.persisted? ? "Update Article" : "Create Article", class: "btn btn-success" %>
   </div>
 <% end %>

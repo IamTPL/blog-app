@@ -1,3 +1,7 @@
-<h1> <%= @p%></h1>
+<h1 class="text-center my-4"> Blog App 6</h1>
 
-<%= link_to 'View All Article', articles_path %>
+<div class="d-flex justify-content-around">
+    <%= link_to 'Article View', articles_path, type: 'button', class: 'text-white text-decoration-none btn btn-dark py-3 px-5' %>
+    
+    <%= link_to 'Author View', authors_path, type: 'button', class: 'text-white text-decoration-none btn btn-dark py-3 px-5' %>
+</div>

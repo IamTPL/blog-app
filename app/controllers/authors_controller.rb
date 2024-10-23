@@ -1,5 +1,7 @@
 class AuthorsController < ApplicationController
-  before_action :set_author, only: %i[show edit update destroy]
+  # before_action :set_author, only: %i[show edit update destroy]
+  before_action :require_login, only: %i[new create edit update destroy]
+  before_action :correct_author, only: %i[edit update destroy]
 
   # GET /authors or /authors.json
   def index
@@ -8,6 +10,8 @@ class AuthorsController < ApplicationController
 
   # GET /authors/1 or /authors/1.json
   def show
+    @author = Author.find(params[:id])
+    @articles = @author.articles.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /authors/new
@@ -49,6 +53,9 @@ class AuthorsController < ApplicationController
 
   # DELETE /authors/1 or /authors/1.json
   def destroy
+    if current_user == @author
+      reset_session # Xóa thông tin đăng nhập
+    end
     @author.destroy
 
     respond_to do |format|
@@ -60,12 +67,24 @@ class AuthorsController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_author
-    @author = Author.find(params[:id])
-  end
+  # def set_author
+  #   @author = Author.find(params[:id])
+  # end
 
   # Only allow a list of trusted parameters through.
   def author_params
-    params.require(:author).permit(:name, :age)
+    params.require(:author).permit(:name, :age, :email, :password, :password_confirmation)
+  end
+
+  def correct_author
+    @author = Author.find_by(id: params[:id])
+    redirect_to authors_path, alert: 'Not authorized to edit this Profile' if current_user !=  @author
+  end
+
+  def require_login
+    return if logged_in?
+
+    flash[:alert] = 'You must be logged in to perform that action'
+    redirect_to login_path
   end
 end
