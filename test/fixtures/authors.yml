@@ -1,9 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  age: MyString
+    name: 'John Doe'
+    email: 'johndoe@example.com'
+    password_digest: <%= Author.digest('password') %>
 
 two:
-  name: MyString
-  age: MyString
+    name: 'Jane Smith'
+    email: 'janesmith@example.com'
+    password_digest: <%= Author.digest('password') %>
+
+three:
+    id: 11
+    name: 'Alexander Marqueen'
+    email: 'marqueen@example.com'
+    password_digest: <%= Author.digest('password') %>

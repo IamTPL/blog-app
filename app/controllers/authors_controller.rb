@@ -73,14 +73,14 @@ class AuthorsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def author_params
-    permitted_params = [:name, :age, :email]
+    permitted_params = %i[name age email]
     permitted_params << :password << :password_confirmation if params[:author][:password].present?
     params.require(:author).permit(permitted_params)
   end
 
   def correct_author
     @author = Author.find_by(id: params[:id])
-    redirect_to authors_path, alert: 'Not authorized to edit this Profile' if current_user !=  @author
+    redirect_to authors_path, alert: 'Not authorized to edit this Profile' if current_user != @author
   end
 
   def require_login
